@@ -1,73 +1,87 @@
-# React + TypeScript + Vite
+## Background layers
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+``
+css/_ Main page background — darkest _/
+bg-[#1a1a1a]
 
-Currently, two official plugins are available:
+/_ Sidebar background _/
+bg-[#1f1f1f]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+/_ Cards / panels background _/
+bg-[#2a2a2a]
 
-## React Compiler
+/_ Input / draft area background _/
+bg-[#333333]
+``
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Text colors
 
-## Expanding the ESLint configuration
+``
+css/_ Primary text — headings, document titles _/
+text-white
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+/_ Secondary text — "2 hours ago", "32k remaining" _/
+text-[#888888]
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+/_ Muted labels — "RECENT DOCUMENTS", "OUTPUT BY TYPE" _/
+text-[#666666]
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Accent colors
+css/_ Sidebar active item left border _/
+border-l-[#7C6FF7] /_ purple _/
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+/_ Sidebar active item text _/
+text-[#7C6FF7]
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+/_ Positive delta — "+12 this week", "+6.2k today" _/
+text-[#4ade80] /_ green _/
+``
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Badges
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+``
+css/_ Email badge _/
+bg-[#2a2a2a] text-white border border-[#444444]
+
+/_ Blog badge _/
+bg-[#4ade80] text-[#1a1a1a] /_ green _/
+
+/_ Ad copy badge _/
+bg-[#fb923c] text-[#1a1a1a] /_ orange _/
+``
+
+## Chart bars
+
+``
+css/_ Blog bar _/
+bg-[#7C6FF7] /_ purple _/
+
+/_ Email bar _/
+bg-[#4ade80] /_ green _/
+
+/_ Ad copy bar _/
+bg-[#fb923c] /_ orange _/
+
+/_ Social bar _/
+bg-[#f472b6] /_ pink _/
+``
+
+## Token usage bar
+
+``
+css/_ Track _/
+bg-[#333333]
+
+/_ Fill _/
+bg-[#7C6FF7]
+``
+
+## Borders
+
+``
+css/_ Card borders _/
+border border-[#3a3a3a]
+
+/_ Sidebar right border _/
+border-r border-[#2f2f2f]
+``
