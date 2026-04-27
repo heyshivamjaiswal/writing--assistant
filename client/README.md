@@ -85,3 +85,82 @@ border border-[#3a3a3a]
 /_ Sidebar right border _/
 border-r border-[#2f2f2f]
 ``
+--
+
+# Build order
+
+## LAYOUT
+
+-Sidebar
+-Topbar
+-Page container
+
+## ROUTING
+
+-Dashboard
+-Editor
+-History
+-Templates
+
+## TYPES
+
+type Document = {
+id: string
+title: string
+content: string
+type: "blog" | "email" | "ad"
+createdAt: string
+}
+
+## DOCUMENT SYSTEM
+
+Create store:
+
+-documents[]
+-currentDocument
+
+Actions:
+
+-createDocument
+-saveDocument
+-deleteDocument
+-setCurrentDocument
+
+## EDITOR SYSTEM
+
+UI:
+-textarea / editor
+-generate button
+save button
+-Logic:
+-content state
+-update content
+-call fake AI
+
+## CONNECT EDITOR + STORE
+
+-saving adds document
+-opening loads document
+
+## HISTORY PAGE
+
+-list of documents
+-click → open in editor
+
+## DASHBOARD
+
+-stats cards
+-recent docs
+-usag
+
+## TEMPLATES PAGE
+
+-predefined prompts
+-click → open editor with prefilled data
+
+## POLISH
+
+-loading states
+-typing animation
+-empty states
+-toast messages
