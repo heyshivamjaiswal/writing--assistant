@@ -4,7 +4,7 @@ export const TotalProgress = ({ used, total }: ProgressProps) => {
   const percentage = total === 0 ? 0 : Math.min((used / total) * 100, 100);
 
   return (
-    <div className="w-72">
+    <div className="w-52">
       <div className="flex justify-between text-xs text-text-secondary mb-1">
         <span>
           {used} / {total}
