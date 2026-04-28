@@ -1,4 +1,5 @@
 export type ProgressProps = {
-  value: number;
-  lable?: string;
+  used: number;
+  total?: number | any;
+  label?: string;
 };

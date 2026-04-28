@@ -1,4 +1,5 @@
 import { BsDot } from 'react-icons/bs';
+import { TotalProgress } from '../ui/ProgressBar';
 
 export default function Sidebar() {
   const sidebarItems = [
@@ -27,13 +28,16 @@ export default function Sidebar() {
             </div>
           ))}
         </div>
-        <div className="pb-20">
+        <div className="pb-8">
           <div className="border-t border-border-sidebar"></div>
-          <div className="flex flex-col gap-1 p-4">
-            <span className="text-text-secondary text-xs font-bold">
+          <div className="flex flex-col  p-4">
+            <span className="text-text-secondary text-xs font-bold pb-2">
               Token Used
             </span>
-            <span className="text text-text-primary">68,400/1000k</span>
+            <span className="pt-1">
+              <TotalProgress total={1000} used={720} />
+            </span>
+            <span className="text text-text-primary "></span>
           </div>
         </div>
       </div>
