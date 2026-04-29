@@ -10,11 +10,11 @@ export const TotalProgress = ({ used, total }: ProgressProps) => {
           {used} / {total}
         </span>
       </div>
-      <div className="w-full bg-card rounded-full h-2 overflow-hidden">
+
+      <div className="w-full bg-card bg-bg-base rounded-full h-2 overflow-hidden">
         <div
-          className="h-full bg-accent-purple transition-all duration-300
-                "
-          style={{ width: `${percentage}` }}
+          className="h-full bg-accent-purple transition-all duration-300"
+          style={{ width: `${percentage}%` }}
         />
       </div>
     </div>
