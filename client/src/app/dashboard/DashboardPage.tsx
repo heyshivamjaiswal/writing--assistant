@@ -8,7 +8,6 @@ export default function DashboardPage() {
       <aside className="w-64 bg-bg-sidebar border-r border-border-sidebar">
         <Sidebar />
       </aside>
-
       {/* right section */}
       <div className="flex-1 flex flex-col">
         {/* topbar */}
