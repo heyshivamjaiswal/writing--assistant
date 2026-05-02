@@ -7,7 +7,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/editor" element={<Editor />} />
+        <Route path="/dashboard/editor" element={<Editor />} />
       </Routes>
     </BrowserRouter>
   );
