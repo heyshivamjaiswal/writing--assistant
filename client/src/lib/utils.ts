@@ -4,3 +4,7 @@ export function formatNumber(num: number): string {
   }
   return num.toString();
 }
+
+export function getDynamicTotal(used: number, step: number) {
+  return Math.ceil(used / step) * step || step;
+}

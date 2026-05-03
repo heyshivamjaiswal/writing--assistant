@@ -39,7 +39,7 @@ export default function Sidebar() {
             Token Used
           </span>
 
-          <TotalProgress total={1000} used={720} />
+          <TotalProgress className="bg-accent-purple" total={1000} used={720} />
         </div>
       </div>
     </div>

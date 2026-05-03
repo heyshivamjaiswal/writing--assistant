@@ -19,9 +19,14 @@ export default function TypeSelector() {
       </div>
 
       <div>
-        <input
-          type="text"
-          className="w-full h-24 bg-bg-input border border-bg-base outline-none rounded-3xl px-4"
+        <textarea
+          rows={3}
+          onInput={(e) => {
+            const target = e.target as HTMLTextAreaElement;
+            target.style.height = 'auto';
+            target.style.height = target.scrollHeight + 'px';
+          }}
+          className="w-full h-24 bg-bg-input py-5 text-text-primary border border-bg-base outline-none rounded-3xl px-4"
         />
       </div>
       <Button className="w-full bg-bg-base text-white rounded-full py-2">
