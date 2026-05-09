@@ -1,8 +1,13 @@
 import { FaListAlt } from 'react-icons/fa';
-import { documentsData } from '../../data/mockData';
 import { typeStyles } from '../../types';
 
-export default function DocumentList() {
+type docProp = {
+  title: string;
+  type: string;
+  createdAt: string;
+};
+
+export default function DocumentList({ docus }: { docus: docProp[] }) {
   return (
     <div className="mt-6">
       {/* Container */}
@@ -14,13 +19,13 @@ export default function DocumentList() {
             ALL DOCUMENTS
           </p>
           <p className="text-text-secondary font-semibold text-xs">
-            ({documentsData.length})
+            ({docus.length})
           </p>
         </div>
 
         {/* List */}
         <div className="flex flex-col divide-y divide-border-subtle">
-          {documentsData.map((doc, index) => (
+          {docus.map((doc, index) => (
             <div
               key={index}
               className="flex items-center justify-between py-3 hover:bg-bg-hover px-2 rounded-lg transition"

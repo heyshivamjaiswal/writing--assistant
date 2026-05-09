@@ -6,7 +6,7 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const baseStyle =
-    'px-2 py-2 rounded font-semibold cursor-pointer transition duration-200';
+    'px-2 py-2 rounded font-semibold cursor-pointer transition duration-200 w-20';
   return (
     <button className={`${baseStyle} ${className}`} {...props}>
       {children}
