@@ -8,7 +8,7 @@ interface FormField {
   options?: string[];
 }
 
-type ContentType = 'blog' | 'email' | 'adCopy' | 'social';
+export type ContentType = 'blog' | 'email' | 'adCopy' | 'social';
 
 type FormFields = Record<ContentType, FormField[]>;
 
