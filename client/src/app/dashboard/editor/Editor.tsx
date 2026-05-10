@@ -1,12 +1,21 @@
 import OutputPanel from '../../../components/editor/OutputPanel';
 import TypeSelector from '../../../components/editor/TypeSelector';
+import Topbar from '../../../components/layout/Topbar';
 
 export default function Editor() {
   return (
-    <div className="flex h-screen bg-bg-base p-5 gap-5">
-      <TypeSelector />
+    <div className="h-screen bg-bg-base flex flex-col overflow-hidden">
+      {/* Topbar */}
+      <Topbar />
 
-      <OutputPanel />
+      {/* Main Panels */}
+      <div className="flex flex-1 gap-5 p-5 overflow-hidden">
+        {/* Left */}
+        <TypeSelector />
+
+        {/* Right */}
+        <OutputPanel />
+      </div>
     </div>
   );
 }
