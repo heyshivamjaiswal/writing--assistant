@@ -4,6 +4,15 @@ import { formFields, type ContentType } from '../../data/formField';
 
 export default function TypeSelector() {
   const [selected, setSelected] = useState<ContentType | null>(null);
+  const [formValue, setFormValue] = useState<Record<string, string>>({});
+
+  console.log(formValue);
+  const handleChange = (name: string, value: string) => {
+    setFormValue((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleClick = (type: ContentType) => {
     setSelected((prev) => (prev === type ? null : type));
@@ -76,13 +85,20 @@ export default function TypeSelector() {
                 <input
                   type="text"
                   placeholder={field.placeholder}
+                  value={formValue[field.name] || ''}
+                  onChange={(e) => handleChange(field.name, e.target.value)}
                   className="w-full bg-bg-input py-3 text-text-primary placeholder:text-text-secondary border border-bg-base outline-none rounded-2xl px-4"
                 />
               )}
 
               {/* select */}
               {field.type === 'select' && (
-                <select className="w-full bg-bg-input py-3 text-text-primary border border-bg-base outline-none rounded-2xl px-4">
+                <select
+                  value={formValue[field.name || '']}
+                  onChange={(e) => handleChange(field.name, e.target.value)}
+                  className="w-full bg-bg-input py-3 text-text-primary border border-bg-base outline-none rounded-2xl px-4"
+                >
+                  <option value="">Select...</option>
                   {field.options?.map((option) => (
                     <option key={option} value={option}>
                       {option}
