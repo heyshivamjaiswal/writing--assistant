@@ -3,7 +3,11 @@ import Button from '../ui/Button';
 import { formFields, type ContentType } from '../../data/formField';
 import { promptBuilders } from '../../lib/promptBuilders';
 
-export default function TypeSelector() {
+type props = {
+  setOutput: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export default function TypeSelector({ setOutput }: props) {
   const [selected, setSelected] = useState<ContentType | null>(null);
   const [formValue, setFormValue] = useState<Record<string, string>>({});
 
@@ -20,7 +24,7 @@ export default function TypeSelector() {
 
     const prompt = promptBuilders[selected](formValue);
 
-    console.log(prompt);
+    setOutput(prompt);
   };
 
   const handleClick = (type: ContentType) => {

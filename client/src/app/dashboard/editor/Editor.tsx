@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import OutputPanel from '../../../components/editor/OutputPanel';
 import TypeSelector from '../../../components/editor/TypeSelector';
 import Topbar from '../../../components/layout/Topbar';
 
 export default function Editor() {
+  const [output, setOutput] = useState('');
   return (
     <div className="h-screen bg-bg-base flex flex-col overflow-hidden">
       {/* Topbar */}
@@ -11,10 +13,10 @@ export default function Editor() {
       {/* Main Panels */}
       <div className="flex flex-1 gap-5 p-5 overflow-hidden">
         {/* Left */}
-        <TypeSelector />
+        <TypeSelector setOutput={setOutput} />
 
         {/* Right */}
-        <OutputPanel />
+        <OutputPanel output={output} />
       </div>
     </div>
   );
