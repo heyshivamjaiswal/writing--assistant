@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Button from '../ui/Button';
 import { formFields, type ContentType } from '../../data/formField';
+import { promptBuilders } from '../../lib/promptBuilders';
 
 export default function TypeSelector() {
   const [selected, setSelected] = useState<ContentType | null>(null);
@@ -12,6 +13,14 @@ export default function TypeSelector() {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleGenerator = () => {
+    if (!selected) return;
+
+    const prompt = promptBuilders[selected](formValue);
+
+    console.log(prompt);
   };
 
   const handleClick = (type: ContentType) => {
@@ -110,7 +119,10 @@ export default function TypeSelector() {
           ))}
       </div>
 
-      <Button className="w-full bg-bg-base text-white rounded-full py-2">
+      <Button
+        className="w-full bg-bg-base text-white rounded-full py-2"
+        onClick={handleGenerator}
+      >
         Generate
       </Button>
     </div>
