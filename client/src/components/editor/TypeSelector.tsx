@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import Button from '../ui/Button';
 import { formFields, type ContentType } from '../../data/formField';
 import { promptBuilders } from '../../lib/promptBuilders';
 import { useEditorStore } from '../../store/useEditorStore';
+import { generateContent } from '../../lib/groq';
 
 export default function TypeSelector() {
   const selected = useEditorStore((state) => state.selected);
@@ -10,15 +10,28 @@ export default function TypeSelector() {
   const setSelected = useEditorStore((state) => state.setSelected);
   const setFormValue = useEditorStore((state) => state.setFormValue);
   const setOutput = useEditorStore((state) => state.setOutput);
+  const setLoading = useEditorStore((state) => state.setLoading);
 
   console.log(formValue);
 
-  const handleGenerator = () => {
+  const handleGenerator = async () => {
     if (!selected) return;
 
-    const prompt = promptBuilders[selected](formValue);
+    try {
+      setLoading(true);
 
-    setOutput(prompt);
+      const prompt = promptBuilders[selected](formValue);
+
+      const response = await generateContent(prompt);
+
+      setOutput(response || 'No Response');
+    } catch (error) {
+      console.log(error);
+
+      setOutput('Something went wrong');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleClick = (type: ContentType) => {

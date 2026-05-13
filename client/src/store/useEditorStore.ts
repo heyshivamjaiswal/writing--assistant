@@ -8,11 +8,15 @@ type EditorStore = {
 
   output: string;
 
+  isLoading: boolean;
+
   setSelected: (type: ContentType | null) => void;
 
   setOutput: (output: string) => void;
 
   setFormValue: (name: string, value: string) => void;
+
+  setLoading: (loading: boolean) => void;
 };
 
 export const useEditorStore = create<EditorStore>((set) => ({
@@ -21,6 +25,8 @@ export const useEditorStore = create<EditorStore>((set) => ({
   formValue: {},
 
   output: '',
+
+  isLoading: false,
 
   setSelected: (type) =>
     set({
@@ -38,5 +44,10 @@ export const useEditorStore = create<EditorStore>((set) => ({
   setOutput: (output) =>
     set({
       output,
+    }),
+
+  setLoading: (loading) =>
+    set({
+      isLoading: loading,
     }),
 }));
