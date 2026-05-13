@@ -11,6 +11,8 @@ type EditorStore = {
   setSelected: (type: ContentType | null) => void;
 
   setOutput: (output: string) => void;
+
+  setFormValue: (name: string, value: string) => void;
 };
 
 export const useEditorStore = create<EditorStore>((set) => ({

@@ -2,22 +2,16 @@ import { useState } from 'react';
 import Button from '../ui/Button';
 import { formFields, type ContentType } from '../../data/formField';
 import { promptBuilders } from '../../lib/promptBuilders';
+import { useEditorStore } from '../../store/useEditorStore';
 
-type props = {
-  setOutput: React.Dispatch<React.SetStateAction<string>>;
-};
-
-export default function TypeSelector({ setOutput }: props) {
-  const [selected, setSelected] = useState<ContentType | null>(null);
-  const [formValue, setFormValue] = useState<Record<string, string>>({});
+export default function TypeSelector() {
+  const selected = useEditorStore((state) => state.selected);
+  const formValue = useEditorStore((state) => state.formValue);
+  const setSelected = useEditorStore((state) => state.setSelected);
+  const setFormValue = useEditorStore((state) => state.setFormValue);
+  const setOutput = useEditorStore((state) => state.setOutput);
 
   console.log(formValue);
-  const handleChange = (name: string, value: string) => {
-    setFormValue((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
 
   const handleGenerator = () => {
     if (!selected) return;
@@ -28,7 +22,11 @@ export default function TypeSelector({ setOutput }: props) {
   };
 
   const handleClick = (type: ContentType) => {
-    setSelected((prev) => (prev === type ? null : type));
+    if (selected === type) {
+      setSelected(null);
+    } else {
+      setSelected(type);
+    }
   };
 
   return (
@@ -99,7 +97,7 @@ export default function TypeSelector({ setOutput }: props) {
                   type="text"
                   placeholder={field.placeholder}
                   value={formValue[field.name] || ''}
-                  onChange={(e) => handleChange(field.name, e.target.value)}
+                  onChange={(e) => setFormValue(field.name, e.target.value)}
                   className="w-full bg-bg-input py-3 text-text-primary placeholder:text-text-secondary border border-bg-base outline-none rounded-2xl px-4"
                 />
               )}
@@ -107,8 +105,8 @@ export default function TypeSelector({ setOutput }: props) {
               {/* select */}
               {field.type === 'select' && (
                 <select
-                  value={formValue[field.name || '']}
-                  onChange={(e) => handleChange(field.name, e.target.value)}
+                  value={formValue[field.name] || ''}
+                  onChange={(e) => setFormValue(field.name, e.target.value)}
                   className="w-full bg-bg-input py-3 text-text-primary border border-bg-base outline-none rounded-2xl px-4"
                 >
                   <option value="">Select...</option>
