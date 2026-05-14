@@ -6,6 +6,7 @@ import HowItWorks from '../components/landing/sections/HowItWorks';
 import Navbar from '../components/landing/sections/Navbar';
 import Pricing from '../components/landing/sections/Pricing';
 import Showcase from '../components/landing/sections/Showcase';
+import Formats from '../components/landing/sections/Formats';
 
 export default function Landing() {
   return (
@@ -19,6 +20,8 @@ export default function Landing() {
       <Showcase />
 
       <HowItWorks />
+
+      <Formats />
 
       <Pricing />
 
