@@ -1,13 +1,14 @@
+import { motion } from 'framer-motion';
+
 import PrimaryButton from '../ui/Button';
 import Card from '../ui/Card';
 import GhostButton from '../ui/GhostButton';
 import SectionWrapper from '../ui/SectionWrapper';
-import { motion } from 'framer-motion';
 
 export default function Hero() {
   return (
-    <SectionWrapper className="pt-2">
-      <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[78vh]">
+    <SectionWrapper className="pt-0">
+      <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-16 items-center min-h-[84vh]">
         {/* LEFT */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -18,16 +19,17 @@ export default function Hero() {
           {/* Pill */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#2E2E2E] bg-[#222222] text-sm text-[#8A8070]">
             <span className="text-[#D97B3A]">✦</span>
+
             <span>For writers who mean it</span>
           </div>
 
           {/* Heading */}
-          <div className="space-y-5">
-            <h1 className="font-['Fraunces'] text-5xl lg:text-7xl leading-tight tracking-tight text-[#E8DCC8] max-w-[620px]">
+          <div className="space-y-6">
+            <h1 className="font-['Fraunces'] text-[4.8rem] lg:text-[5.4rem] leading-[0.95] tracking-[-0.04em] text-[#E8DCC8] max-w-[680px]">
               For people who have things to say but no time to say them well
             </h1>
 
-            <p className="text-[#8A8070] text-lg leading-8 max-w-xl">
+            <p className="text-[#8A8070] text-[18px] leading-8 max-w-[560px]">
               Quillr writes the blogs, emails, and copy you keep putting off.
               You bring the ideas. We handle the words.
             </p>
@@ -58,17 +60,18 @@ export default function Hero() {
           }}
           className="relative"
         >
-          <Card className="p-10 bg-[#222222] border border-[#2E2E2E] rounded-3xl">
+          <Card className="p-10 rounded-[28px] shadow-2xl">
             <div className="space-y-8">
               {/* Header */}
-              <div className="flex items-center gap-1 text-sm text-[#8A8070]">
+              <div className="flex items-center gap-2 text-sm text-[#8A8070]">
                 <span className="text-[#D97B3A]">✦</span>
+
                 <span>Email</span>
               </div>
 
               {/* Meta */}
               <div className="space-y-5">
-                <div className="grid grid-cols-[90px_1fr] items-center text-sm">
+                <div className="grid grid-cols-[100px_1fr] items-center text-sm">
                   <span className="text-[#8A8070]">Topic</span>
 
                   <span className="text-[#E8DCC8] text-right">
@@ -76,7 +79,7 @@ export default function Hero() {
                   </span>
                 </div>
 
-                <div className="grid grid-cols-[90px_1fr] items-center text-sm">
+                <div className="grid grid-cols-[100px_1fr] items-center text-sm">
                   <span className="text-[#8A8070]">Tone</span>
 
                   <span className="text-[#E8DCC8] text-right">
@@ -87,7 +90,7 @@ export default function Hero() {
 
               {/* Divider */}
               <div className="border-t border-[#2E2E2E] pt-8">
-                <p className="text-[#E8DCC8] text-[17px] leading-[2.1]">
+                <p className="text-[#E8DCC8] text-[17px] leading-[1.95]">
                   Hi Sarah,
                   <br />
                   <br />
@@ -96,11 +99,11 @@ export default function Hero() {
                   <br />
                   <br />
                   Over the past year I've shipped four features, reduced churn
-                  by 12%, and somehow kept the team sane through two reorgs.
+                  by 12%, and somehow kept the team sane through two reorgs. I
+                  think that’s worth talking about.
                 </p>
               </div>
             </div>
-            {/* <div className="absolute inset-0 bg-[#D97B3A]/10 blur-3xl rounded-full" /> */}
           </Card>
         </motion.div>
       </div>

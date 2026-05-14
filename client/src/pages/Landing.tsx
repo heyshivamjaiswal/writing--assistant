@@ -16,9 +16,9 @@ export default function Landing() {
 
       <Features />
 
-      <HowItWorks />
-
       <Showcase />
+
+      <HowItWorks />
 
       <Pricing />
 

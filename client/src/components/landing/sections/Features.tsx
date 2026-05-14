@@ -26,7 +26,7 @@ const features = [
 
 export default function Features() {
   return (
-    <SectionWrapper className="pt-24 pb-28 bg-[#1b1a1a]">
+    <SectionWrapper className="py-28 bg-[#1B1A1A]">
       <div className="flex flex-col items-center text-center">
         {/* Heading */}
         <motion.div
@@ -36,13 +36,13 @@ export default function Features() {
           viewport={{ once: true }}
           className="max-w-4xl"
         >
-          <SectionHeading className="max-w-3xl mx-auto leading-tight">
+          <SectionHeading className="max-w-4xl mx-auto leading-[1.1]">
             Writing that sounds like you. Not like everyone else using AI.
           </SectionHeading>
         </motion.div>
 
         {/* Cards */}
-        <div className="grid lg:grid-cols-3 gap-6 mt-20 w-full">
+        <div className="grid lg:grid-cols-3 gap-6 mt-16 w-full">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -58,23 +58,23 @@ export default function Features() {
                 className="
                   p-7
                   text-left
-                  min-h-[220px]
-                  hover:border-[#D97B3A]/30
+                  min-h-[190px]
+                  hover:border-[#D97B3A]/40
                   transition-all
                   duration-500
                 "
               >
                 <div className="space-y-6">
-                  {/* Accent Line */}
+                  {/* Accent */}
                   <div className="w-12 h-[2px] bg-[#D97B3A]" />
 
                   {/* Text */}
                   <div className="space-y-4">
-                    <h3 className="font-['Fraunces'] text-2xl text-[#E8DCC8] leading-snug">
+                    <h3 className="font-['Fraunces'] text-[1.8rem] leading-tight text-[#E8DCC8]">
                       {feature.title}
                     </h3>
 
-                    <p className="text-[#8A8070] leading-8 text-[17px]">
+                    <p className="text-[#8A8070] text-[17px] leading-8">
                       {feature.description}
                     </p>
                   </div>

@@ -8,7 +8,7 @@ export default function Navbar() {
       <Container>
         <nav className="h-20 flex items-center justify-between">
           {/* Logo */}
-          <div className="font-['Fraunces'] text-2xl text-[#E8DCC8]">
+          <div className="font-['Fraunces'] text-[2rem] text-[#E8DCC8]">
             Quillr
           </div>
 
@@ -33,7 +33,7 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Action */}
+          {/* Actions */}
           <div className="flex items-center gap-3">
             <GhostButton>Sign in</GhostButton>
 

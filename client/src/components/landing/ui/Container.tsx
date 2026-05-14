@@ -1,16 +1,21 @@
 import type { ReactNode } from 'react';
 
-type props = {
+type Props = {
   children: ReactNode;
   className?: string;
 };
 
-export default function Container({ children, className = '' }: props) {
+export default function Container({ children, className = '' }: Props) {
   return (
     <div
       className={`
-            max-w-7xl mx-auto px-6 lg:px-10 ${className}
-            `}
+        w-full
+        max-w-[1240px]
+        mx-auto
+        px-6
+        lg:px-8
+        ${className}
+      `}
     >
       {children}
     </div>

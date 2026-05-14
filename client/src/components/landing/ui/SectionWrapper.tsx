@@ -1,14 +1,14 @@
-import type { ReactNode } from 'react';
 import Container from './Container';
 
-type Props = {
-  children: ReactNode;
+export default function SectionWrapper({
+  children,
+  className = '',
+}: {
+  children: React.ReactNode;
   className?: string;
-};
-
-export default function SectionWrapper({ children, className = '' }: Props) {
+}) {
   return (
-    <section className={`py-24 lg:py-32 ${className}`}>
+    <section className={`py-24 lg:py-28 ${className}`}>
       <Container>{children}</Container>
     </section>
   );
