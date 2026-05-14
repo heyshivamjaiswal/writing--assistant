@@ -1,5 +1,28 @@
 @import 'tailwindcss';
 
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: #d97b3a;
+  color: #141414;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 @theme {
   --color-bg-base: #1a1a1a;
   --color-bg-sidebar: #1f1f1f;
