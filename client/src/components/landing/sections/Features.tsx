@@ -26,7 +26,7 @@ const features = [
 
 export default function Features() {
   return (
-    <SectionWrapper className="py-28 bg-[#1B1A1A]">
+    <SectionWrapper id="features" className="py-28 bg-[#1B1A1A]">
       <div className="flex flex-col items-center text-center">
         {/* Heading */}
         <motion.div

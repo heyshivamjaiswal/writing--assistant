@@ -6,7 +6,7 @@ import SectionWrapper from '../ui/SectionWrapper';
 
 export default function Showcase() {
   return (
-    <SectionWrapper className="py-32 bg-[#111111]">
+    <SectionWrapper id="demo" className="py-32 bg-[#111111]">
       <div className="space-y-8 flex flex-col items-center">
         {/* Heading */}
         <div className="max-w-3xl flex flex-col items-center justify-center">
@@ -17,8 +17,8 @@ export default function Showcase() {
           </SectionHeading>
 
           <p className="text-[#8A8070] text-lg leading-8 mt-6">
-            Everything designed to help you focus on ideas — not formatting,
-            tabs, or endless prompts.
+            Everything designed to help you focus on ideas not formatting, tabs,
+            or endless prompts.
           </p>
         </div>
 
@@ -68,7 +68,7 @@ export default function Showcase() {
                       </p>
 
                       <p>
-                        Quillr helps bridge that gap — turning rough unfinished
+                        Quillr helps bridge that gap turning rough unfinished
                         thoughts into something workable.
                       </p>
                     </div>

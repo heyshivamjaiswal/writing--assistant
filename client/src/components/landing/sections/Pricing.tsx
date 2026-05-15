@@ -53,7 +53,7 @@ const plans = [
 
 export default function Pricing() {
   return (
-    <SectionWrapper className="py-32 bg-[#141414]">
+    <SectionWrapper id="pricing" className="py-32 bg-[#141414]">
       <div className="space-y-20">
         {/* Heading */}
         <div className="max-w-3xl mx-auto text-center">

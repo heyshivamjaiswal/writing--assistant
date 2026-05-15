@@ -8,7 +8,7 @@ import SectionWrapper from '../ui/SectionWrapper';
 export default function Hero() {
   return (
     <SectionWrapper className="pt-0">
-      <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-16 items-center min-h-[60vh]">
+      <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-16 items-center min-h-[70vh]">
         {/* LEFT */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -95,7 +95,7 @@ export default function Hero() {
                   <br />
                   <br />
                   I've been thinking about how to bring this up without it being
-                  weird, and I figured — just say it directly.
+                  weird, and I figured just say it directly.
                   <br />
                   <br />
                   Over the past year I've shipped four features, reduced churn
