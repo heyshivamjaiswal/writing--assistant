@@ -7,9 +7,9 @@ import SectionWrapper from '../ui/SectionWrapper';
 export default function Showcase() {
   return (
     <SectionWrapper className="py-32 bg-[#111111]">
-      <div className="space-y-20">
+      <div className="space-y-8 flex flex-col items-center">
         {/* Heading */}
-        <div className="max-w-3xl">
+        <div className="max-w-3xl flex flex-col items-center justify-center">
           <p className="text-sm text-[#D97B3A] mb-5">Product showcase</p>
 
           <SectionHeading>

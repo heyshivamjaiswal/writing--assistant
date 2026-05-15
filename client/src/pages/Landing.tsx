@@ -19,11 +19,11 @@ export default function Landing() {
 
       <Showcase />
 
-      <HowItWorks />
-
       <Formats />
 
       <Pricing />
+
+      <HowItWorks />
 
       <CTA />
 

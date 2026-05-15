@@ -8,7 +8,7 @@ import SectionWrapper from '../ui/SectionWrapper';
 export default function Hero() {
   return (
     <SectionWrapper className="pt-0">
-      <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-16 items-center min-h-[84vh]">
+      <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-16 items-center min-h-[60vh]">
         {/* LEFT */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
