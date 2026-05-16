@@ -36,14 +36,14 @@ export default function Footer() {
 
               <div className="space-y-4 text-sm">
                 <a
-                  href="#"
+                  href="#features"
                   className="block text-[#8A8070] hover:text-[#E8DCC8] transition-colors"
                 >
                   Features
                 </a>
 
                 <a
-                  href="#"
+                  href="#pricing"
                   className="block text-[#8A8070] hover:text-[#E8DCC8] transition-colors"
                 >
                   Pricing
@@ -98,7 +98,7 @@ export default function Footer() {
               <div className="space-y-4 text-sm">
                 {/* Replace later */}
                 <a
-                  href="#"
+                  href="https://github.com/heyshivamjaiswal/writing--assistant"
                   className="block text-[#8A8070] hover:text-[#E8DCC8] transition-colors"
                 >
                   GitHub Repo
