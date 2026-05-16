@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 
 import PrimaryButton from '../ui/Button';
-import Card from '../ui/Card';
 import GhostButton from '../ui/GhostButton';
 import SectionWrapper from '../ui/SectionWrapper';
+import FloatingPreview from '../ui/FloatingPreview';
 
 export default function Hero() {
   return (
@@ -44,68 +44,7 @@ export default function Hero() {
         </motion.div>
 
         {/* RIGHT */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{
-            opacity: 1,
-            y: [0, -10, 0],
-          }}
-          transition={{
-            opacity: { duration: 1 },
-            y: {
-              duration: 6,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            },
-          }}
-          className="relative"
-        >
-          <Card className="p-10 rounded-[28px] shadow-2xl">
-            <div className="space-y-8">
-              {/* Header */}
-              <div className="flex items-center gap-2 text-sm text-[#8A8070]">
-                <span className="text-[#D97B3A]">✦</span>
-
-                <span>Email</span>
-              </div>
-
-              {/* Meta */}
-              <div className="space-y-5">
-                <div className="grid grid-cols-[100px_1fr] items-center text-sm">
-                  <span className="text-[#8A8070]">Topic</span>
-
-                  <span className="text-[#E8DCC8] text-right">
-                    Why I deserve a raise
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-[100px_1fr] items-center text-sm">
-                  <span className="text-[#8A8070]">Tone</span>
-
-                  <span className="text-[#E8DCC8] text-right">
-                    Confident but not annoying
-                  </span>
-                </div>
-              </div>
-
-              {/* Divider */}
-              <div className="border-t border-[#2E2E2E] pt-8">
-                <p className="text-[#E8DCC8] text-[17px] leading-[1.95]">
-                  Hi Sarah,
-                  <br />
-                  <br />
-                  I've been thinking about how to bring this up without it being
-                  weird, and I figured just say it directly.
-                  <br />
-                  <br />
-                  Over the past year I've shipped four features, reduced churn
-                  by 12%, and somehow kept the team sane through two reorgs. I
-                  think that’s worth talking about.
-                </p>
-              </div>
-            </div>
-          </Card>
-        </motion.div>
+        <FloatingPreview />
       </div>
     </SectionWrapper>
   );

@@ -44,3 +44,34 @@ export const documentsData = [
     createdAt: 'Apr 17',
   },
 ];
+
+export const previews = [
+  {
+    type: 'Email',
+    title: 'Why I deserve a raise',
+    tone: 'Confident',
+    content: "Hi Sarah, I've been thinking about how to bring this up...",
+  },
+  {
+    type: 'Blog',
+    title: 'Why creators procrastinate',
+    tone: 'Thoughtful',
+    content:
+      "Most procrastination isn't laziness. It's fear disguised as delay. The more emotionally important the work feels, the harder it becomes to begin.",
+  },
+
+  {
+    type: 'Social',
+    title: 'Hot take:',
+    tone: 'Witty',
+    content:
+      "Most people don't hate writing.\n\nThey hate the pressure of starting before the idea feels perfect.",
+  },
+
+  {
+    type: 'Ad Copy',
+    title: 'Write faster',
+    tone: 'Bold',
+    content: 'Generate launch copy, emails, and posts in seconds.',
+  },
+];

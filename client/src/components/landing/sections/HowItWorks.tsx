@@ -1,126 +1,76 @@
-// HowItWorks.tsx
-
+import { useState } from 'react';
+import Card from '../../../components/landing/ui/Card';
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
+import { previews } from '../../../data/mockData';
 
-import Card from '../ui/Card';
-import SectionHeading from '../ui/SectionHeading';
-import SectionWrapper from '../ui/SectionWrapper';
+export default function FloatingMotion() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const currentPreview = previews[currentIndex];
 
-const steps = [
-  {
-    number: '01',
-    title: 'Describe what you need',
-    description:
-      'Start with a rough idea, messy thought, or simple prompt. Quillr handles the structure.',
-  },
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev === previews.length - 1 ? 0 : prev + 1));
+    }, 4000);
 
-  {
-    number: '02',
-    title: 'Choose your tone & format',
-    description:
-      'Blogs, emails, ad copy, or social posts — tailor the writing to match your voice.',
-  },
+    return () => clearInterval(interval);
+  }, []);
 
-  {
-    number: '03',
-    title: 'Generate polished writing',
-    description:
-      'Get clean, readable content instantly. Edit, refine, and ship without the blank page struggle.',
-  },
-];
-
-export default function HowItWorks() {
   return (
-    <SectionWrapper className="py-32 bg-[#141414]">
-      <div className="space-y-20">
-        {/* Heading */}
-        <div className="max-w-3xl">
-          <p className="text-sm text-[#D97B3A] mb-5">How it works</p>
+    <div>
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{
+          opacity: 1,
+          y: [0, -10, 0],
+        }}
+        transition={{
+          opacity: { duration: 1 },
+          y: {
+            duration: 6,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          },
+        }}
+        className="relative"
+      >
+        <Card className="p-10 rounded-[28px] shadow-2xl">
+          <div className="space-y-8">
+            {/* Header */}
+            <div className="flex items-center gap-2 text-sm text-[#8A8070]">
+              <span className="text-[#D97B3A]">✦</span>
 
-          <SectionHeading className="leading-[1.1]">
-            Writing with Quillr feels
-            <br />
-            surprisingly simple.
-          </SectionHeading>
-        </div>
+              <span>{currentPreview.type}</span>
+            </div>
 
-        {/* Steps */}
-        <div className="relative grid lg:grid-cols-3 gap-8">
-          {/* Connecting line */}
-          <div
-            className="
-              hidden
-              lg:block
-              absolute
-              top-8
-              left-0
-              right-0
-              h-px
-              bg-[#2A2A2A]
-            "
-          />
+            {/* Meta */}
+            <div className="space-y-5">
+              <div className="grid grid-cols-[100px_1fr] items-center text-sm">
+                <span className="text-[#8A8070]">Topic</span>
 
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.number}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.7,
-                delay: index * 0.15,
-              }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-              {/* Number Dot */}
-              <div
-                className="
-                  hidden
-                  lg:flex
-                  absolute
-                  -top-3
-                  left-8
-                  w-6
-                  h-6
-                  rounded-full
-                  bg-[#D97B3A]
-                  z-10
-                "
-              />
+                <span className="text-[#E8DCC8] text-right">
+                  {currentPreview.title}
+                </span>
+              </div>
 
-              <Card
-                className="
-                  h-full
-                  p-8
-                  bg-[#1A1A1A]
-                  rounded-[30px]
-                  hover:border-[#D97B3A]/40
-                  transition-all
-                  duration-500
-                "
-              >
-                <div className="space-y-8">
-                  {/* Number */}
-                  <div className="text-[#D97B3A] text-sm tracking-[0.2em]">
-                    {step.number}
-                  </div>
+              <div className="grid grid-cols-[100px_1fr] items-center text-sm">
+                <span className="text-[#8A8070]">Tone</span>
 
-                  {/* Text */}
-                  <div className="space-y-4">
-                    <h3 className="font-['Fraunces'] text-3xl leading-tight text-[#E8DCC8]">
-                      {step.title}
-                    </h3>
+                <span className="text-[#E8DCC8] text-right">
+                  {currentPreview.tone}
+                </span>
+              </div>
+            </div>
 
-                    <p className="text-[#8A8070] text-[17px] leading-8">
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </SectionWrapper>
+            {/* Divider */}
+            <div className="border-t border-[#2E2E2E] pt-8">
+              <p className="text-[#E8DCC8] text-[17px] leading-[1.95]">
+                {currentPreview.content}
+              </p>
+            </div>
+          </div>
+        </Card>
+      </motion.div>
+    </div>
   );
 }
