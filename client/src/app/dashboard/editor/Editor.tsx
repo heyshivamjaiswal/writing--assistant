@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import OutputPanel from '../../../components/editor/OutputPanel';
 import TypeSelector from '../../../components/editor/TypeSelector';
 import Topbar from '../../../components/layout/Topbar';
