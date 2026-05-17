@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import FloatingPreview from '../../../components/landing/ui/FloatingPreview';
+import { IoEyeSharp } from 'react-icons/io5';
+import { HiMiniEyeSlash } from 'react-icons/hi2';
 
 export default function AuthenticationPage() {
   const [mode, setMode] = useState<'signin' | 'signup'>('signup');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [formData, setFormData] = useState({
     email: '',
     fullName: '',
-    userName: '',
     password: '',
     showPassword: '',
   });
@@ -44,19 +47,8 @@ export default function AuthenticationPage() {
                 <input
                   type="text"
                   placeholder="John Doe"
-                  className="
-                    w-full
-                    bg-[#1D1D1D]
-                    border
-                    border-[#2A2A2A]
-                    rounded-2xl
-                    px-4
-                    py-3
-                    text-[#E8DCC8]
-                    placeholder:text-[#666666]
-                    outline-none
-                    focus:border-[#D97B3A]
-                    transition-colors
+                  className="w-full bg-[#1D1D1D] border border-[#2A2A2A] rounded-2xl px-4 py-3 text-[#E8DCC8]
+                   placeholder:text-[#666666] outline-none focus:border-[#D97B3A] transition-colors
                   "
                 />
               </div>
@@ -69,50 +61,39 @@ export default function AuthenticationPage() {
               <input
                 type="email"
                 placeholder="johndoe@gmail.com"
-                className="
-                  w-full
-                  bg-[#1D1D1D]
-                  border
-                  border-[#2A2A2A]
-                  rounded-2xl
-                  px-4
-                  py-3
-                  text-[#E8DCC8]
-                  placeholder:text-[#666666]
-                  outline-none
-                  focus:border-[#D97B3A]
-                  transition-colors
+                className="w-full bg-[#1D1D1D] border border-[#2A2A2A] rounded-2xl px-4 py-3 text-[#E8DCC8]
+                 placeholder:text-[#666666] outline-none focus:border-[#D97B3A] transition-colors
                 "
               />
             </div>
 
             {/* Password */}
-            <div className="space-y-2">
+            <div className="space-y-2 relative">
               <label className="text-sm text-[#8A8070]">Password</label>
 
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 placeholder="Enter your password"
-                className="
-                  w-full
-                  bg-[#1D1D1D]
-                  border
-                  border-[#2A2A2A]
-                  rounded-2xl
-                  px-4
-                  py-3
-                  text-[#E8DCC8]
-                  placeholder:text-[#666666]
-                  outline-none
-                  focus:border-[#D97B3A]
-                  transition-colors
+                className="w-full bg-[#1D1D1D] border border-[#2A2A2A] rounded-2xl px-4 py-3 text-[#E8DCC8] 
+                placeholder:text-[#666666] outline-none focus:border-[#D97B3A]transition-colors
                 "
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword((p) => !p)}
+                className="absolute right-3 top-[42px] text-white/40 hover:text-white/70"
+              >
+                {showPassword ? (
+                  <HiMiniEyeSlash size={20} />
+                ) : (
+                  <IoEyeSharp size={20} />
+                )}
+              </button>
             </div>
 
             {/* Confirm Password */}
             {mode === 'signup' && (
-              <div className="space-y-2">
+              <div className="space-y-2 relative">
                 <label className="text-sm text-[#8A8070]">
                   Confirm password
                 </label>
@@ -120,37 +101,28 @@ export default function AuthenticationPage() {
                 <input
                   type="password"
                   placeholder="Enter your password"
-                  className="
-                    w-full
-                    bg-[#1D1D1D]
-                    border
-                    border-[#2A2A2A]
-                    rounded-2xl
-                    px-4
-                    py-3
-                    text-[#E8DCC8]
-                    placeholder:text-[#666666]
-                    outline-none
-                    focus:border-[#D97B3A]
-                    transition-colors
+                  className="w-full bg-[#1D1D1D] border border-[#2A2A2A] rounded-2xl px-4 py-3 text-[#E8DCC8]
+                   placeholder:text-[#666666] outline-none focus:border-[#D97B3A] transition-colors
                   "
                 />
+                <button
+                  type="button"
+                  className="absolute right-3 top-[42px] text-white/40 hover:text-white/70"
+                  onClick={() => setShowConfirmPassword((p) => !p)}
+                >
+                  {showConfirmPassword ? (
+                    <HiMiniEyeSlash size={20} />
+                  ) : (
+                    <IoEyeSharp size={20} />
+                  )}
+                </button>
               </div>
             )}
 
             {/* Submit */}
             <button
-              className="
-                w-full
-                bg-[#D97B3A]
-                hover:bg-[#E8924F]
-                text-[#141414]
-                font-medium
-                py-3
-                rounded-2xl
-                transition-colors
-                mt-2
-                cursor-pointer
+              className="w-full bg-[#D97B3A] hover:bg-[#E8924F] text-[#141414] font-medium py-3 
+              rounded-2xl transition-colors  mt-2 cursor-pointer
               "
             >
               {mode === 'signin' ? 'Sign in' : 'Create account'}
