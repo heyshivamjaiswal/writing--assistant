@@ -57,7 +57,7 @@ export const previews = [
     title: 'Why creators procrastinate',
     tone: 'Thoughtful',
     content:
-      "Most procrastination isn't laziness. It's fear disguised as delay. The more emotionally important the work feels, the harder it becomes to begin.",
+      "Most procrastination isn't laziness. It's fear disguised as delay.\n The more emotionally important the work feels, the harder it\n becomes to begin.",
   },
 
   {
