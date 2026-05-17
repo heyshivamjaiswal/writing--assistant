@@ -4,8 +4,10 @@ import PrimaryButton from '../ui/Button';
 import GhostButton from '../ui/GhostButton';
 import SectionWrapper from '../ui/SectionWrapper';
 import FloatingPreview from '../ui/FloatingPreview';
+import { useNavigate } from 'react-router';
 
 export default function Hero() {
+  const navigate = useNavigate();
   return (
     <SectionWrapper className="pt-0">
       <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-16 items-center min-h-[70vh]">
@@ -37,7 +39,9 @@ export default function Hero() {
 
           {/* Buttons */}
           <div className="flex items-center gap-4">
-            <PrimaryButton>Start writing free →</PrimaryButton>
+            <button onClick={() => navigate('/auth')}>
+              <PrimaryButton>Start writing free →</PrimaryButton>
+            </button>
 
             <GhostButton>See how it works</GhostButton>
           </div>

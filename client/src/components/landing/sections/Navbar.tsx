@@ -1,8 +1,10 @@
+import { useNavigate } from 'react-router';
 import PrimaryButton from '../ui/Button';
 import Container from '../ui/Container';
 import GhostButton from '../ui/GhostButton';
 
 export default function Navbar() {
+  const navigate = useNavigate();
   return (
     <header className="sticky top-0 z-50 backdrop-blur-md bg-[#141414]/80 border-b border-[#2E2E2E]">
       <Container>
@@ -35,9 +37,12 @@ export default function Navbar() {
 
           {/* Actions */}
           <div className="flex items-center gap-3">
-            <GhostButton>Sign in</GhostButton>
-
-            <PrimaryButton>Start writing →</PrimaryButton>
+            <button onClick={() => navigate('/auth')}>
+              <GhostButton>Sign in</GhostButton>
+            </button>
+            <button onClick={() => navigate('/auth')}>
+              <PrimaryButton>Start writing →</PrimaryButton>
+            </button>
           </div>
         </nav>
       </Container>

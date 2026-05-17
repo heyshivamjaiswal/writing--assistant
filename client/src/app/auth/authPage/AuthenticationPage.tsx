@@ -2,19 +2,40 @@ import { useState } from 'react';
 import FloatingPreview from '../../../components/landing/ui/FloatingPreview';
 import { IoEyeSharp } from 'react-icons/io5';
 import { HiMiniEyeSlash } from 'react-icons/hi2';
+import { FcGoogle } from 'react-icons/fc';
+import { useNavigate } from 'react-router';
 
 export default function AuthenticationPage() {
   const [mode, setMode] = useState<'signin' | 'signup'>('signup');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: '',
     fullName: '',
     password: '',
-    showPassword: '',
+    confirmPassword: '',
   });
 
+  const handleChagne = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (mode === 'signup' && formData.password !== formData.confirmPassword) {
+      alert('Passwords do not match');
+      return;
+    }
+
+    console.log(formData);
+  };
   return (
     <div className="min-h-screen bg-[#141414] grid lg:grid-cols-[0.9fr_1.1fr]">
       {/* LEFT */}
@@ -38,7 +59,7 @@ export default function AuthenticationPage() {
           </div>
 
           {/* Form */}
-          <form className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5">
             {/* Full Name */}
             {mode === 'signup' && (
               <div className="space-y-2">
@@ -46,6 +67,9 @@ export default function AuthenticationPage() {
 
                 <input
                   type="text"
+                  onChange={handleChagne}
+                  name="fullName"
+                  value={formData.fullName}
                   placeholder="John Doe"
                   className="w-full bg-[#1D1D1D] border border-[#2A2A2A] rounded-2xl px-4 py-3 text-[#E8DCC8]
                    placeholder:text-[#666666] outline-none focus:border-[#D97B3A] transition-colors
@@ -60,6 +84,9 @@ export default function AuthenticationPage() {
 
               <input
                 type="email"
+                name="email"
+                onChange={handleChagne}
+                value={formData.email}
                 placeholder="johndoe@gmail.com"
                 className="w-full bg-[#1D1D1D] border border-[#2A2A2A] rounded-2xl px-4 py-3 text-[#E8DCC8]
                  placeholder:text-[#666666] outline-none focus:border-[#D97B3A] transition-colors
@@ -73,6 +100,9 @@ export default function AuthenticationPage() {
 
               <input
                 type={showPassword ? 'text' : 'password'}
+                onChange={handleChagne}
+                name="password"
+                value={formData.password}
                 placeholder="Enter your password"
                 className="w-full bg-[#1D1D1D] border border-[#2A2A2A] rounded-2xl px-4 py-3 text-[#E8DCC8] 
                 placeholder:text-[#666666] outline-none focus:border-[#D97B3A]transition-colors
@@ -99,7 +129,10 @@ export default function AuthenticationPage() {
                 </label>
 
                 <input
-                  type="password"
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  onChange={handleChagne}
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
                   placeholder="Enter your password"
                   className="w-full bg-[#1D1D1D] border border-[#2A2A2A] rounded-2xl px-4 py-3 text-[#E8DCC8]
                    placeholder:text-[#666666] outline-none focus:border-[#D97B3A] transition-colors
@@ -137,8 +170,13 @@ export default function AuthenticationPage() {
             <div className="h-px bg-[#2A2A2A] flex-1" />
           </div>
           {/* Google button */}
-          <button className="w-full border border-[#2A2A2A] py-3 text-[#E8DCC8] hover:border-[#D97B3A] transition-colors cursor-pointer">
+          <button
+            className="w-full border border-[#2A2A2A] py-3 text-[#E8DCC8] hover:border-[#D97B3A] transition-colors cursor-pointer
+          flex items-center justify-center gap-3
+          "
+          >
             Continue with google
+            <FcGoogle />
           </button>
           {/* Switch Mode */}
           <p className="text-sm text-[#8A8070] text-center mt-8">

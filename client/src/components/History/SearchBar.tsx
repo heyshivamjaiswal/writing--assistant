@@ -9,7 +9,7 @@ export default function SearchBar({ search, setSearch }: Props) {
   return (
     <div className="flex gap-5">
       <div className="relative w-72">
-        <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary text-sm" />
+        <FaSearch className="absolute left-3  top-1/3 -translate-y-1/2 text-text-secondary text-sm" />
 
         <input
           type="text"

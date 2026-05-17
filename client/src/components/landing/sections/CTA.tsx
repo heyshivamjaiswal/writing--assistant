@@ -5,8 +5,10 @@ import { motion } from 'framer-motion';
 import PrimaryButton from '../ui/Button';
 import SectionHeading from '../ui/SectionHeading';
 import SectionWrapper from '../ui/SectionWrapper';
+import { useNavigate } from 'react-router';
 
 export default function CTA() {
+  const navigate = useNavigate();
   return (
     <SectionWrapper className="py-36 bg-[#111111]">
       <motion.div
@@ -49,9 +51,11 @@ export default function CTA() {
 
           {/* CTA */}
           <div className="mt-12 flex justify-center">
-            <PrimaryButton className="px-8 py-4 text-base">
-              Start writing free →
-            </PrimaryButton>
+            <button onClick={() => navigate('/auth')}>
+              <PrimaryButton className="px-8 py-4 text-base">
+                Start writing free →
+              </PrimaryButton>
+            </button>
           </div>
 
           {/* Tiny trust text */}

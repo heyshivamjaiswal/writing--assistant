@@ -31,7 +31,7 @@ export default function FilterTabs({ filterType, setFilterType }: filterProp) {
       </Button>
 
       <Button
-        className="px-3 py-1 text-xs font-semibold text-orange-600 bg-orange-200 border border-orange-400 rounded-full"
+        className="px-2 py-1 text-xs font-semibold text-orange-600 bg-orange-200 border border-orange-400 rounded-full"
         onClick={() => setFilterType('adCopy')}
       >
         Ad Copy

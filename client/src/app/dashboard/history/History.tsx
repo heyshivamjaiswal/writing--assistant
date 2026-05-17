@@ -31,7 +31,7 @@ export default function History() {
           </div>
         </div>
       </header>
-      <div className="border border-border-sidebar mt-10"></div>9
+      <div className="border border-border-sidebar mt-10"></div>
       <DocumentList docus={filteredDocs} />
     </div>
   );
