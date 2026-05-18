@@ -4,11 +4,13 @@ import { IoEyeSharp } from 'react-icons/io5';
 import { HiMiniEyeSlash } from 'react-icons/hi2';
 import { FcGoogle } from 'react-icons/fc';
 import { useNavigate } from 'react-router';
+import axiosInstance from '../../../lib/axios';
 
 export default function AuthenticationPage() {
   const [mode, setMode] = useState<'signin' | 'signup'>('signup');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -33,9 +35,8 @@ export default function AuthenticationPage() {
       alert('Passwords do not match');
       return;
     }
-
-    console.log(formData);
   };
+
   return (
     <div className="min-h-screen bg-[#141414] grid lg:grid-cols-[0.9fr_1.1fr]">
       {/* LEFT */}
