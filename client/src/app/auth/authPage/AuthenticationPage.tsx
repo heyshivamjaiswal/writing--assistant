@@ -1,16 +1,22 @@
 import { useState } from 'react';
-import FloatingPreview from '../../../components/landing/ui/FloatingPreview';
-import { IoEyeSharp } from 'react-icons/io5';
-import { HiMiniEyeSlash } from 'react-icons/hi2';
-import { FcGoogle } from 'react-icons/fc';
 import { useNavigate } from 'react-router';
+
+import { FcGoogle } from 'react-icons/fc';
+import { HiMiniEyeSlash } from 'react-icons/hi2';
+import { IoEyeSharp } from 'react-icons/io5';
+
+import FloatingPreview from '../../../components/landing/ui/FloatingPreview';
 import axiosInstance from '../../../lib/axios';
 
 export default function AuthenticationPage() {
   const [mode, setMode] = useState<'signin' | 'signup'>('signup');
+
   const [showPassword, setShowPassword] = useState(false);
+
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -20,20 +26,56 @@ export default function AuthenticationPage() {
     confirmPassword: '',
   });
 
-  const handleChagne = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // Frontend validation
     if (mode === 'signup' && formData.password !== formData.confirmPassword) {
       alert('Passwords do not match');
       return;
+    }
+
+    try {
+      setLoading(true);
+
+      const endpoint = mode === 'signin' ? '/auth/signin' : '/auth/signup';
+
+      // Clean payload
+      const payload =
+        mode === 'signin'
+          ? {
+              email: formData.email,
+              password: formData.password,
+            }
+          : {
+              fullName: formData.fullName,
+              email: formData.email,
+              password: formData.password,
+            };
+
+      const response = await axiosInstance.post(endpoint, payload);
+
+      // Store token
+      localStorage.setItem('token', response.data.token);
+
+      console.log(response.data);
+
+      // Redirect
+      navigate('/dashboard');
+    } catch (error) {
+      console.log(error);
+      alert('Something went wrong');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,7 +94,7 @@ export default function AuthenticationPage() {
               {mode === 'signin' ? 'Welcome back' : 'Create your account'}
             </h1>
 
-            <p className="text-[#8A8070] leading-7 text-[15px]">
+            <p className="text-[#8A8070] leading-7 text-[15px] mt-2">
               {mode === 'signin'
                 ? 'Sign in to continue writing with Quillr'
                 : 'Start writing faster with AI-powered workflows'}
@@ -68,12 +110,23 @@ export default function AuthenticationPage() {
 
                 <input
                   type="text"
-                  onChange={handleChagne}
                   name="fullName"
                   value={formData.fullName}
+                  onChange={handleChange}
                   placeholder="John Doe"
-                  className="w-full bg-[#1D1D1D] border border-[#2A2A2A] rounded-2xl px-4 py-3 text-[#E8DCC8]
-                   placeholder:text-[#666666] outline-none focus:border-[#D97B3A] transition-colors
+                  className="
+                    w-full
+                    bg-[#1D1D1D]
+                    border
+                    border-[#2A2A2A]
+                    rounded-2xl
+                    px-4
+                    py-3
+                    text-[#E8DCC8]
+                    placeholder:text-[#666666]
+                    outline-none
+                    focus:border-[#D97B3A]
+                    transition-colors
                   "
                 />
               </div>
@@ -86,11 +139,22 @@ export default function AuthenticationPage() {
               <input
                 type="email"
                 name="email"
-                onChange={handleChagne}
                 value={formData.email}
+                onChange={handleChange}
                 placeholder="johndoe@gmail.com"
-                className="w-full bg-[#1D1D1D] border border-[#2A2A2A] rounded-2xl px-4 py-3 text-[#E8DCC8]
-                 placeholder:text-[#666666] outline-none focus:border-[#D97B3A] transition-colors
+                className="
+                  w-full
+                  bg-[#1D1D1D]
+                  border
+                  border-[#2A2A2A]
+                  rounded-2xl
+                  px-4
+                  py-3
+                  text-[#E8DCC8]
+                  placeholder:text-[#666666]
+                  outline-none
+                  focus:border-[#D97B3A]
+                  transition-colors
                 "
               />
             </div>
@@ -101,18 +165,36 @@ export default function AuthenticationPage() {
 
               <input
                 type={showPassword ? 'text' : 'password'}
-                onChange={handleChagne}
                 name="password"
                 value={formData.password}
+                onChange={handleChange}
                 placeholder="Enter your password"
-                className="w-full bg-[#1D1D1D] border border-[#2A2A2A] rounded-2xl px-4 py-3 text-[#E8DCC8] 
-                placeholder:text-[#666666] outline-none focus:border-[#D97B3A]transition-colors
+                className="
+                  w-full
+                  bg-[#1D1D1D]
+                  border
+                  border-[#2A2A2A]
+                  rounded-2xl
+                  px-4
+                  py-3
+                  text-[#E8DCC8]
+                  placeholder:text-[#666666]
+                  outline-none
+                  focus:border-[#D97B3A]
+                  transition-colors
                 "
               />
+
               <button
                 type="button"
                 onClick={() => setShowPassword((p) => !p)}
-                className="absolute right-3 top-[42px] text-white/40 hover:text-white/70"
+                className="
+                  absolute
+                  right-3
+                  top-[42px]
+                  text-white/40
+                  hover:text-white/70
+                "
               >
                 {showPassword ? (
                   <HiMiniEyeSlash size={20} />
@@ -131,18 +213,36 @@ export default function AuthenticationPage() {
 
                 <input
                   type={showConfirmPassword ? 'text' : 'password'}
-                  onChange={handleChagne}
                   name="confirmPassword"
                   value={formData.confirmPassword}
-                  placeholder="Enter your password"
-                  className="w-full bg-[#1D1D1D] border border-[#2A2A2A] rounded-2xl px-4 py-3 text-[#E8DCC8]
-                   placeholder:text-[#666666] outline-none focus:border-[#D97B3A] transition-colors
+                  onChange={handleChange}
+                  placeholder="Confirm your password"
+                  className="
+                    w-full
+                    bg-[#1D1D1D]
+                    border
+                    border-[#2A2A2A]
+                    rounded-2xl
+                    px-4
+                    py-3
+                    text-[#E8DCC8]
+                    placeholder:text-[#666666]
+                    outline-none
+                    focus:border-[#D97B3A]
+                    transition-colors
                   "
                 />
+
                 <button
                   type="button"
-                  className="absolute right-3 top-[42px] text-white/40 hover:text-white/70"
                   onClick={() => setShowConfirmPassword((p) => !p)}
+                  className="
+                    absolute
+                    right-3
+                    top-[42px]
+                    text-white/40
+                    hover:text-white/70
+                  "
                 >
                   {showConfirmPassword ? (
                     <HiMiniEyeSlash size={20} />
@@ -155,11 +255,28 @@ export default function AuthenticationPage() {
 
             {/* Submit */}
             <button
-              className="w-full bg-[#D97B3A] hover:bg-[#E8924F] text-[#141414] font-medium py-3 
-              rounded-2xl transition-colors  mt-2 cursor-pointer
+              type="submit"
+              disabled={loading}
+              className="
+                w-full
+                bg-[#D97B3A]
+                hover:bg-[#E8924F]
+                disabled:opacity-70
+                disabled:cursor-not-allowed
+                text-[#141414]
+                font-medium
+                py-3
+                rounded-2xl
+                transition-colors
+                mt-2
+                cursor-pointer
               "
             >
-              {mode === 'signin' ? 'Sign in' : 'Create account'}
+              {loading
+                ? 'Please wait...'
+                : mode === 'signin'
+                  ? 'Sign in'
+                  : 'Create account'}
             </button>
           </form>
 
@@ -168,24 +285,47 @@ export default function AuthenticationPage() {
             <div className="h-px bg-[#2A2A2A] flex-1" />
 
             <span className="text-sm text-[#6F675C]">or</span>
+
             <div className="h-px bg-[#2A2A2A] flex-1" />
           </div>
-          {/* Google button */}
+
+          {/* Google Button */}
           <button
-            className="w-full border border-[#2A2A2A] py-3 text-[#E8DCC8] hover:border-[#D97B3A] transition-colors cursor-pointer
-          flex items-center justify-center gap-3
-          "
+            type="button"
+            className="
+              w-full
+              border
+              border-[#2A2A2A]
+              py-3
+              text-[#E8DCC8]
+              hover:border-[#D97B3A]
+              transition-colors
+              cursor-pointer
+              flex
+              items-center
+              justify-center
+              gap-3
+              rounded-2xl
+            "
           >
-            Continue with google
-            <FcGoogle />
+            <FcGoogle size={20} />
+            Continue with Google
           </button>
-          {/* Switch Mode */}
+
+          {/* Switch mode */}
           <p className="text-sm text-[#8A8070] text-center mt-8">
-            {mode === 'signin' ? "Don't have an account" : 'Already writing?'}
+            {mode === 'signin' ? "Don't have an account?" : 'Already writing?'}
+
             <button
               type="button"
               onClick={() => setMode(mode === 'signin' ? 'signup' : 'signin')}
-              className="ml-2 text-[#D97B3A] hover:text-[#E8924F] transition-colors cursor-pointer"
+              className="
+                ml-2
+                text-[#D97B3A]
+                hover:text-[#E8924F]
+                transition-colors
+                cursor-pointer
+              "
             >
               {mode === 'signin' ? 'Sign up' : 'Sign in'}
             </button>

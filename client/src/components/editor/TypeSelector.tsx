@@ -12,8 +12,6 @@ export default function TypeSelector() {
   const setOutput = useEditorStore((state) => state.setOutput);
   const setLoading = useEditorStore((state) => state.setLoading);
 
-  console.log(formValue);
-
   const handleGenerator = async () => {
     if (!selected) return;
 

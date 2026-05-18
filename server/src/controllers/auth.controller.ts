@@ -23,8 +23,9 @@ export const signUp = async (req: Request, res: Response) => {
       ...result,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
-      message: error instanceof Error ? error.message : 'Internal server error',
+      message: error instanceof Error ? error.message : 'Something went wrong',
     });
   }
 };
@@ -47,8 +48,9 @@ export const signIn = async (req: Request, res: Response) => {
       ...result,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
-      message: error instanceof Error ? error.message : 'Internal server error',
+      message: error instanceof Error ? error.message : 'Something went wrong',
     });
   }
 };
