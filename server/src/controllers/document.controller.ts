@@ -1,25 +1,94 @@
 import { Request, Response } from 'express';
+import {
+  createNewDocument,
+  getSingleDocument,
+  getUserDocuments,
+} from '../services/document.services';
 
 export const createDocument = async (req: Request, res: Response) => {
   try {
-    res.status(201).json({
-      message: 'Document route working',
+    const { title, content, type, tone } = req.body;
+
+    //validation
+    if (!title || !content || !type) {
+      return res.status(400).json({
+        message: 'Missing requird fields',
+      });
+    }
+
+    //user comes from middleware
+    const userId = req.user?.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        message: 'Unauthorized',
+      });
+    }
+
+    const document = await createNewDocument({
+      title,
+      content,
+      type,
+      tone,
+      userId,
+    });
+
+    return res.status(201).json({
+      message: 'Document created',
+      document,
     });
   } catch (error) {
-    res.status(500).json({
-      message: 'Something went wrong',
+    console.log(error);
+
+    return res.status(500).json({
+      message: error instanceof Error ? error.message : 'Something went wrong',
     });
   }
 };
 
 export const getDocument = async (req: Request, res: Response) => {
   try {
-    res.status(200).json({
-      message: 'Get document route working',
+    const userId = req.user?.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        message: 'Unauthorized',
+      });
+    }
+    const documents = await getUserDocuments(userId);
+
+    return res.status(200).json({
+      documents,
     });
   } catch (error) {
-    res.status(500).json({
-      message: 'Something went wrong',
+    console.log(error);
+
+    return res.status(500).json({
+      message: error instanceof Error ? error.message : 'Something went wrong',
+    });
+  }
+};
+
+export const documentById = async (req: Request, res: Response) => {
+  try {
+    const id = String(req.params.id);
+
+    const userId = req.user?.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        message: 'Unauthorized',
+      });
+    }
+
+    const document = await getSingleDocument(id, userId);
+
+    return res.status(200).json({ document });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(404).json({
+      message: error instanceof Error ? error.message : 'Something went wrong',
     });
   }
 };
