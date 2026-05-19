@@ -4,8 +4,11 @@ import StatCard from '../../components/dashboard/StatCard';
 import Sidebar from '../../components/layout/Sidebar';
 import Topbar from '../../components/layout/Topbar';
 import Button from '../../components/ui/Button';
+import { useDocumentStore } from '../../store/useDocumentStore';
+import { typeStyles } from '../../types';
 
 export default function DashboardPage() {
+  const documents = useDocumentStore((s) => s.documents);
   return (
     <div className="flex bg-bg-base h-screen">
       {/* Sidebar */}
@@ -26,7 +29,7 @@ export default function DashboardPage() {
           <div className="grid grid-cols-4 gap-4">
             <StatCard
               label="Documents"
-              statCount={142}
+              statCount={documents.length}
               statDuration="+12 this week"
             />
             <StatCard
@@ -55,45 +58,35 @@ export default function DashboardPage() {
               </h3>
 
               <div className="flex flex-col divide-y divide-border-subtle">
-                <RecentDocument
-                  title="Product launch email"
-                  timestamp="2 hours ago"
-                  action={
-                    <Button className="bg-purple-200 text-xs font-semibold text-purple-600 border border-purple-400 rounded-full py-1">
-                      Blog
-                    </Button>
-                  }
-                />
+                {documents.length === 0 ? (
+                  <div className="py-0 text-center">
+                    <p className="text-text-secondary text-sm">
+                      No documents yet
+                    </p>
 
-                <RecentDocument
-                  title="10x your productivity"
-                  timestamp="Yesterday"
-                  action={
-                    <Button className="bg-green-200 text-xs font-semibold text-green-600 border border-green-400 rounded-full py-1">
-                      Email
-                    </Button>
-                  }
-                />
-
-                <RecentDocument
-                  title="Summer sale — 50% off"
-                  timestamp="2 days ago"
-                  action={
-                    <Button className="bg-orange-200 text-xs font-semibold text-orange-600 border border-orange-400 rounded-full py-1">
-                      Ad Copy
-                    </Button>
-                  }
-                />
-
-                <RecentDocument
-                  title="Q2 investor update"
-                  timestamp="Apr 22"
-                  action={
-                    <Button className="bg-pink-200 text-xs font-semibold text-pink-600 border border-pink-400 rounded-full py-1">
-                      Social
-                    </Button>
-                  }
-                />
+                    <p className="text-xs text-text-secondary mt-2">
+                      Create your first document to see activity here
+                    </p>
+                  </div>
+                ) : (
+                  documents.slice(0, 4).map((doc) => (
+                    <RecentDocument
+                      key={doc.id}
+                      title={doc.title}
+                      timestamp={new Date(doc.createdAt).toLocaleDateString()}
+                      action={
+                        <button
+                          className={`
+                        text-xs font-semibold border rounded-full py-1
+                        ${typeStyles[doc.type as keyof typeof typeStyles]}
+                        `}
+                        >
+                          {doc.type}
+                        </button>
+                      }
+                    />
+                  ))
+                )}
               </div>
             </div>
 

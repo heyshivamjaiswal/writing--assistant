@@ -3,6 +3,8 @@ import {
   createNewDocument,
   getSingleDocument,
   getUserDocuments,
+  updateDocument,
+  deleteDocument,
 } from '../services/document.services';
 
 export const createDocument = async (req: Request, res: Response) => {
@@ -88,6 +90,60 @@ export const documentById = async (req: Request, res: Response) => {
     console.log(error);
 
     return res.status(404).json({
+      message: error instanceof Error ? error.message : 'Something went wrong',
+    });
+  }
+};
+
+export const editDocument = async (req: Request, res: Response) => {
+  try {
+    const id = String(req.params.id);
+
+    const userId = req.user?.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        message: 'Unauthorized',
+      });
+    }
+
+    const document = await updateDocument(id, userId, req.body);
+
+    return res.status(200).json({
+      message: 'Document updated',
+
+      document,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      message: error instanceof Error ? error.message : 'Something went wrong',
+    });
+  }
+};
+
+export const removeDocument = async (req: Request, res: Response) => {
+  try {
+    const id = String(req.params.id);
+
+    const userId = req.user?.userId;
+
+    if (!userId) {
+      return res.status(4001).json({
+        message: 'Unauthorized',
+      });
+    }
+
+    await deleteDocument(id, userId);
+
+    return res.status(200).json({
+      message: 'Document deleted',
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
       message: error instanceof Error ? error.message : 'Something went wrong',
     });
   }
