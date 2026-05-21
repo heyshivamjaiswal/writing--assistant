@@ -1,5 +1,7 @@
 import { FaListAlt } from 'react-icons/fa';
 import { typeStyles } from '../../types';
+import { useDocumentStore } from '../../store/useDocumentStore';
+import { useNavigate } from 'react-router';
 
 type docProp = {
   title: string;
@@ -8,6 +10,15 @@ type docProp = {
 };
 
 export default function DocumentList({ docus }: { docus: docProp[] }) {
+  const selectDocument = useDocumentStore((s) => s.selectDocument);
+
+  const navigate = useNavigate();
+
+  const handleOpen = (doc: docProp) => {
+    selectDocument(doc);
+
+    navigate('/dashboard/editor');
+  };
   return (
     <div className="mt-6">
       {/* Container */}
@@ -28,6 +39,7 @@ export default function DocumentList({ docus }: { docus: docProp[] }) {
           {docus.map((doc, index) => (
             <div
               key={index}
+              onClick={() => handleOpen(doc)}
               className="flex items-center justify-between py-3 hover:bg-bg-hover px-2 rounded-lg transition"
             >
               {/*Left: Title */}

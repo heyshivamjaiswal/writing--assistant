@@ -1,67 +1,82 @@
 import { FaFileAlt } from 'react-icons/fa';
 import ReactMarkdown from 'react-markdown';
+import { useEffect, useState } from 'react';
+import { editDocument } from '../../services/document';
 
 import { useEditorStore } from '../../store/useEditorStore';
+import { useDocumentStore } from '../../store/useDocumentStore';
 
 export default function OutputPanel() {
   const output = useEditorStore((state) => state.output);
+
   const isLoading = useEditorStore((state) => state.isLoading);
 
+  const selected = useDocumentStore((s) => s.selectedDocument);
+
+  const updateDocument = useDocumentStore((s) => s.updateDocument);
+
+  const [draft, setDraft] = useState('');
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    setDraft(selected?.content || output || '');
+  }, [selected, output]);
+
+  const handleSave = async () => {
+    if (!selected) return;
+    setSaving(true);
+    try {
+      await editDocument(selected.id, draft);
+
+      updateDocument({
+        ...selected,
+
+        content: draft,
+      });
+      console.log('saved');
+    } catch (error) {
+      console.log('error');
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
-    <div
-      className="
-        h-full 
-        w-[800px]
-        rounded-[28px]
-        border
-        border-[#2A2A2A]
-        bg-[#181818]
-        overflow-hidden
-      "
-    >
-      <div className="h-full overflow-y-auto">
-        {isLoading ? (
-          <div className="h-full flex items-center justify-center">
-            <p className="text-[#8A8070] text-lg animate-pulse">
-              Generating content...
-            </p>
-          </div>
-        ) : output ? (
-          <div className="max-w-4xl mx-auto px-14 py-16">
-            <article
-              className="
-                prose
-                prose-invert
-                max-w-none
-                prose-headings:text-[#E8DCC8]
-                prose-p:text-[#B7AA96]
-                prose-p:leading-8
-                prose-strong:text-[#E8DCC8]
-              "
-            >
-              <ReactMarkdown>{output}</ReactMarkdown>
-            </article>
-          </div>
-        ) : (
-          <div className="h-full flex items-center justify-center">
-            <div className="text-center max-w-md space-y-5">
-              <div className="w-16 h-16 rounded-2xl bg-[#222222] border border-[#2A2A2A] flex items-center justify-center mx-auto">
-                <FaFileAlt className="text-[#8A8070]" size={28} />
-              </div>
+    <div className="h-full w-[800px] rounded-[28px] border border-[#2A2A2A] bg-[#181818] overflow-hidden">
+      <div className="h-full overflow-y-auto p-10">
+        <div className="flex items-center gap-3 mb-8">
+          <FaFileAlt className="text-[#8A8070]" />
 
-              <div className="space-y-2">
-                <h3 className="text-2xl font-semibold text-[#E8DCC8]">
-                  Ready to generate
-                </h3>
+          <span className="text-[#8A8070] text-sm">
+            {selected?.title || 'Generated Output'}
+          </span>
+        </div>
 
-                <p className="text-[#8A8070] leading-7">
-                  Choose a format, enter your prompt, and Quillr will generate
-                  polished content here.
-                </p>
-              </div>
+        <div className="prose prose-invert text-text-primary max-w-none whitespace-pre-wrap">
+          {isLoading ? (
+            <p>Generating...</p>
+          ) : draft ? (
+            <>
+              <button
+                onClick={handleSave}
+                disabled={saving}
+                className="mb-6 px-5 py-2 bg-[#D97B3A] rounded-xl disabled:opacity-50"
+              >
+                {saving ? 'Saving...' : 'Save'}
+              </button>
+
+              <textarea
+                value={draft}
+                onChange={(e) => setDraft(e.target.value)}
+                className="w-full min-h-[500px] bg-transparent outline-none resize-none text-[#E8DCC8] leading-8"
+              />
+            </>
+          ) : (
+            <div className="h-[60vh] flex items-center justify-center text-[#6B6B6B]">
+              Your content will appear here
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

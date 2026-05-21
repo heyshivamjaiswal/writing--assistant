@@ -55,10 +55,18 @@ export const useDocumentStore = create<DocumentStore>((set) => ({
       documents: state.documents.map((doc) =>
         doc.id === updated.id ? updated : doc
       ),
+
+      selectedDocument:
+        state.selectedDocument?.id === updated.id
+          ? updated
+          : state.selectedDocument,
     })),
 
   removeDocument: (id) =>
     set((state) => ({
       documents: state.documents.filter((doc) => doc.id !== id),
+
+      selectedDocument:
+        state.selectedDocument?.id === id ? null : state.selectedDocument,
     })),
 }));
