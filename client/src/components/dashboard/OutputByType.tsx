@@ -50,7 +50,7 @@ export default function OutputByType() {
 
       <div className="flex flex-col divide-y divide-border-subtle">
         {rows.map((row) => (
-          <div className="flex items-center gap-10 py-5">
+          <div key={row.label} className="flex items-center gap-10 py-5">
             <p className="w-20 text-sm text-text-primary">{row.label}</p>
 
             <TotalProgress
