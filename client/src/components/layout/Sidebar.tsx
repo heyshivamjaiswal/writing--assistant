@@ -1,13 +1,14 @@
 import { BsDot } from 'react-icons/bs';
 import { TotalProgress } from '../ui/ProgressBar';
+import { Link } from 'react-router';
 
 export default function Sidebar() {
   const sidebarItems = [
-    'Dashboard',
-    'New document',
-    'History',
-    'Template',
-    'Settings',
+    { label: 'Dashboard', path: '/dashboard' },
+    { label: 'New document', path: '/dashboard/editor' },
+    { label: 'History', path: '/dashboard/history' },
+    { label: 'Template', path: '/template' },
+    { label: 'Settings', path: '/settings' },
   ];
 
   return (
@@ -20,13 +21,14 @@ export default function Sidebar() {
       {/* items */}
       <div className="flex flex-col gap-2 pt-4 pl-3">
         {sidebarItems.map((item, i) => (
-          <div
+          <Link
+            to={item.path}
             key={i}
-            className="flex items-center gap-1 text-text-secondary font-semibold"
+            className="flex items-center gap-1 text-text-secondary font-semibold cursor-pointer"
           >
             <BsDot size={23} />
-            <span>{item}</span>
-          </div>
+            <span>{item.label}</span>
+          </Link>
         ))}
       </div>
 

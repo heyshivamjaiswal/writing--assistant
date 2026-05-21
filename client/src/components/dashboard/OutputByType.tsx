@@ -1,6 +1,47 @@
+import { useDocumentStore } from '../../store/useDocumentStore';
 import { TotalProgress } from '../ui/ProgressBar';
 
 export default function OutputByType() {
+  const documents = useDocumentStore((s) => s.documents);
+
+  const counts = {
+    blog: 0,
+    email: 0,
+    adCopy: 0,
+    social: 0,
+  };
+
+  documents.forEach((doc) => {
+    if (doc.type in counts) {
+      counts[doc.type as keyof typeof counts]++;
+    }
+  });
+
+  const rows = [
+    {
+      label: 'Blog',
+      used: counts.blog,
+      color: 'bg-accent-purple',
+    },
+
+    {
+      label: 'Email',
+      used: counts.email,
+      color: 'bg-accent-green',
+    },
+
+    {
+      label: 'Ad Copy',
+      used: counts.email,
+      color: 'bg-accent-orange',
+    },
+
+    {
+      label: 'Social',
+      used: counts.social,
+      color: 'bg-accent-pink',
+    },
+  ];
   return (
     <div className="flex flex-col gap-9">
       <h3 className="text-xs text-text-secondary font-semibold tracking-wide">
@@ -8,29 +49,19 @@ export default function OutputByType() {
       </h3>
 
       <div className="flex flex-col divide-y divide-border-subtle">
-        {/* Blog */}
-        <div className="flex items-center gap-15 py-5">
-          <p className="w-20 text-sm text-text-primary">Blog</p>
-          <TotalProgress used={58} className="bg-accent-purple" />
-        </div>
+        {rows.map((row) => (
+          <div className="flex items-center gap-10 py-5">
+            <p className="w-20 text-sm text-text-primary">{row.label}</p>
 
-        {/* Email */}
-        <div className="flex items-center gap-15 py-5">
-          <p className="w-20 text-sm text-text-primary">Email</p>
-          <TotalProgress used={40} className="bg-accent-green" />
-        </div>
+            <TotalProgress
+              used={row.used}
+              total={documents.length || 1}
+              className={row.color}
+            />
 
-        {/* Ad Copy */}
-        <div className="flex items-center gap-15 py-5">
-          <p className="w-20 text-sm text-text-primary">Ad Copy</p>
-          <TotalProgress used={24} className="bg-accent-orange" />
-        </div>
-
-        {/* Social */}
-        <div className="flex items-center gap-15 py-5">
-          <p className="w-20 text-sm text-text-primary">Social</p>
-          <TotalProgress used={20} className="bg-accent-pink" />
-        </div>
+            <span className="text-xs text-text-secondary">{row.used}</span>
+          </div>
+        ))}
       </div>
       <div className="pl-4 flex flex-col gap-4 ">
         <h3 className="text-xs text-text-secondary font-semibold tracking-wide pl-2">

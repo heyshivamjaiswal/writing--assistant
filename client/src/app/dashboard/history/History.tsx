@@ -2,16 +2,17 @@ import { useState } from 'react';
 import DocumentList from '../../../components/History/DocumentList';
 import FilterTabs from '../../../components/History/FilterTabs';
 import SearchBar from '../../../components/History/SearchBar';
-import { documentsData } from '../../../data/mockData';
+import { useDocumentStore } from '../../../store/useDocumentStore';
 
 export default function History() {
   //filtering through title of the content
+  const documents = useDocumentStore((s) => s.documents);
   const [search, setSearch] = useState('');
 
   //filtering through types
   const [filterType, setFilterType] = useState('');
 
-  const filteredDocs = documentsData
+  const filteredDocs = documents
     .filter((doc) => doc.title.toLowerCase().includes(search.toLowerCase()))
     .filter((doc) =>
       filterType === ''
