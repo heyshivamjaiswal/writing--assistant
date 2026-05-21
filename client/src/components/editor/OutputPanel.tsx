@@ -1,8 +1,9 @@
-import { FaFileAlt, FaEdit } from 'react-icons/fa';
+import { FaEdit, FaFileAlt } from 'react-icons/fa';
 import ReactMarkdown from 'react-markdown';
 import { useEffect, useState } from 'react';
 
 import { editDocument } from '../../services/document';
+import { createDocument } from '../../services/createDocument';
 
 import { useEditorStore } from '../../store/useEditorStore';
 import { useDocumentStore } from '../../store/useDocumentStore';
@@ -16,6 +17,10 @@ export default function OutputPanel() {
 
   const updateDocument = useDocumentStore((s) => s.updateDocument);
 
+  const addDocument = useDocumentStore((s) => s.addDocument);
+
+  const selectDocument = useDocumentStore((s) => s.selectDocument);
+
   const [draft, setDraft] = useState('');
 
   const [editing, setEditing] = useState(false);
@@ -26,11 +31,10 @@ export default function OutputPanel() {
     setDraft(selected?.content || output || '');
   }, [selected, output]);
 
+  // SAVE EXISTING
+
   const handleSave = async () => {
-    if (!selected) {
-      setEditing(false);
-      return;
-    }
+    if (!selected) return;
 
     setSaving(true);
 
@@ -50,16 +54,53 @@ export default function OutputPanel() {
     }
   };
 
+  // CREATE NEW
+
+  const handleCreate = async () => {
+    setSaving(true);
+
+    try {
+      const created = await createDocument({
+        title: 'Untitled',
+
+        content: draft,
+
+        type: 'blog',
+      });
+
+      if (!created?.id) {
+        console.log('Document malformed');
+
+        return;
+      }
+
+      addDocument(created);
+
+      selectDocument(created);
+
+      setEditing(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <div
       className="
       h-full
       w-[900px]
+
       rounded-[32px]
+
       border
       border-[#262626]
+
       bg-[#161616]
+
       overflow-hidden
+
       flex
       flex-col
     "
@@ -70,6 +111,7 @@ export default function OutputPanel() {
         className="
         px-8
         py-6
+
         border-b
         border-[#252525]
 
@@ -92,8 +134,11 @@ export default function OutputPanel() {
             className="
             px-4
             py-2
+
             rounded-2xl
+
             bg-[#222]
+
             text-white
           "
           >
@@ -102,22 +147,21 @@ export default function OutputPanel() {
 
           {editing && (
             <button
-              onClick={handleSave}
-              disabled={saving}
+              onClick={selected ? handleSave : handleCreate}
               className="
-                px-5
-                py-2
+              px-5
+              py-2
 
-                rounded-2xl
+              rounded-2xl
 
-                bg-[#D97B3A]
+              bg-[#D97B3A]
 
-                text-black
+              text-black
 
-                disabled:opacity-50
-              "
+              disabled:opacity-50
+            "
             >
-              {saving ? 'Saving...' : 'Save'}
+              {saving ? 'Working...' : selected ? 'Save' : 'Create'}
             </button>
           )}
         </div>
@@ -128,66 +172,61 @@ export default function OutputPanel() {
       <div
         className="
         flex-1
-        overflow-hidden
+
+        overflow-y-auto
+
+        px-14
+        py-12
       "
       >
-        <div
-          className="
-          h-full
-          overflow-y-auto
+        {isLoading ? (
+          <p>Generating...</p>
+        ) : editing ? (
+          <textarea
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
+            className="
+            w-full
 
-          px-14
-          py-12
-        "
-        >
-          {isLoading ? (
-            <p>Generating...</p>
-          ) : editing ? (
-            <textarea
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              className="
-              w-full
+            min-h-full
 
-              min-h-full
+            bg-transparent
 
-              bg-transparent
+            outline-none
 
-              outline-none
+            resize-none
 
-              resize-none
+            overflow-hidden
 
-              overflow-hidden
+            text-[#ECE4D8]
 
-              text-[#ECE4D8]
+            text-[18px]
 
-              text-[18px]
+            leading-[2]
+          "
+          />
+        ) : (
+          <div
+            className="
+            prose
+            prose-invert
 
-              leading-[2]
-            "
-            />
-          ) : (
-            <div
-              className="
-              prose
-              prose-invert
-              max-w-none
+            max-w-none
 
-              prose-headings:text-white
+            prose-headings:text-white
 
-              prose-p:text-[#DDD]
+            prose-p:text-[#DDD]
 
-              prose-p:leading-9
+            prose-p:leading-9
 
-              prose-strong:text-white
+            prose-strong:text-white
 
-              prose-li:text-[#DDD]
-            "
-            >
-              <ReactMarkdown>{draft}</ReactMarkdown>
-            </div>
-          )}
-        </div>
+            prose-li:text-[#DDD]
+          "
+          >
+            <ReactMarkdown>{draft}</ReactMarkdown>
+          </div>
+        )}
       </div>
     </div>
   );

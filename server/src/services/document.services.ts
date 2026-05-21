@@ -13,7 +13,9 @@ export const createNewDocument = async ({
       title,
       content,
       type,
-      tone,
+      ...(tone && {
+        tone,
+      }),
       userId,
     },
   });

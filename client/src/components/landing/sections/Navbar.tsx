@@ -37,12 +37,11 @@ export default function Navbar() {
 
           {/* Actions */}
           <div className="flex items-center gap-3">
-            <button onClick={() => navigate('/auth')}>
-              <GhostButton>Sign in</GhostButton>
-            </button>
-            <button onClick={() => navigate('/auth')}>
-              <PrimaryButton>Start writing →</PrimaryButton>
-            </button>
+            <GhostButton onClick={() => navigate('/auth')}>Sign in</GhostButton>
+
+            <PrimaryButton onClick={() => navigate('/auth')}>
+              Start writing →
+            </PrimaryButton>
           </div>
         </nav>
       </Container>
