@@ -7,7 +7,7 @@ const router = Router();
 
 router.post('/signup', signUp);
 router.post('/signin', signIn);
-
+//protected route
 router.get('/me', protect, (req, res) => {
   res.json({
     message: 'Protected route working',
