@@ -12,7 +12,7 @@ export default function Card({ children, className = '' }: Props) {
         bg-[#222222]
         border
         border-[#2E2E2E]
-        rounded-2xl
+        rounded-2xl 
         ${className}
       `}
     >

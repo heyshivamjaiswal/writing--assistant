@@ -29,27 +29,22 @@ export default function CTA() {
           text-center
         "
       >
-        {/* Glow */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(217,123,58,0.10),transparent_45%)]" />
 
         <div className="relative max-w-4xl mx-auto">
-          {/* Small Label */}
           <p className="text-sm text-[#D97B3A] mb-6">Start writing today</p>
 
-          {/* Heading */}
           <SectionHeading className="leading-[1.05]">
             Stop staring at the blank page.
             <br />
             Start shipping your ideas.
           </SectionHeading>
 
-          {/* Description */}
           <p className="text-[#8A8070] text-lg leading-8 mt-8 max-w-2xl mx-auto">
             Blogs, emails, launch copy, social posts — Quillr helps you write
             faster without losing your voice.
           </p>
 
-          {/* CTA */}
           <div className="mt-12 flex justify-center">
             <button onClick={() => navigate('/auth')}>
               <PrimaryButton className="px-8 py-4 text-base">
@@ -58,7 +53,6 @@ export default function CTA() {
             </button>
           </div>
 
-          {/* Tiny trust text */}
           <p className="text-sm text-[#6F675C] mt-6">No credit card required</p>
         </div>
       </motion.div>
