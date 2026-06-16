@@ -12,5 +12,10 @@ app.get('/', (_, res) => {
 });
 
 app.use('/auth', authRoute);
+app.get('/health', (_, res) => {
+  res.json({
+    status: 'ok',
+  });
+});
 
 export default app;

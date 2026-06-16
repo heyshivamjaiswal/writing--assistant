@@ -2,7 +2,7 @@ import Button from '../ui/Button';
 import { formFields, type ContentType } from '../../data/formField';
 import { promptBuilders } from '../../lib/promptBuilders';
 import { useEditorStore } from '../../store/useEditorStore';
-import { generateContent } from '../../lib/groq';
+import { generateContent } from '../../services/generate';
 
 export default function TypeSelector() {
   const selected = useEditorStore((state) => state.selected);
