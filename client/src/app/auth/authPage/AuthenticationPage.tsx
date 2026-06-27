@@ -38,7 +38,7 @@ export default function AuthenticationPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Frontend validation
+    
     if (mode === 'signup' && formData.password !== formData.confirmPassword) {
       alert('Passwords do not match');
       return;
@@ -69,7 +69,7 @@ export default function AuthenticationPage() {
 
       console.log(response.data);
 
-      // Redirect
+     
       navigate('/dashboard');
     } catch (error) {
       console.log(error);
@@ -103,7 +103,7 @@ export default function AuthenticationPage() {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Full Name */}
+          
             {mode === 'signup' && (
               <div className="space-y-2">
                 <label className="text-sm text-[#8A8070]">Full name</label>
