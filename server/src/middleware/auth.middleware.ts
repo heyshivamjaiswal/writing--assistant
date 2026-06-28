@@ -16,7 +16,7 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
         message: 'Unauthorized',
       });
     }
-
+ 
     // 3. Extract token
     const token = authHeader.split(' ')[1];
 
