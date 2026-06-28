@@ -3,6 +3,8 @@ import { formFields, type ContentType } from '../../data/formField';
 import { promptBuilders } from '../../lib/promptBuilders';
 import { useEditorStore } from '../../store/useEditorStore';
 import { generateContent } from '../../services/generate';
+import { createDocument } from '../../services/createDocument';
+import { useDocumentStore } from '../../store/useDocumentStore';
 
 export default function TypeSelector() {
   const selected = useEditorStore((state) => state.selected);
@@ -11,6 +13,8 @@ export default function TypeSelector() {
   const setFormValue = useEditorStore((state) => state.setFormValue);
   const setOutput = useEditorStore((state) => state.setOutput);
   const setLoading = useEditorStore((state) => state.setLoading);
+  const addDocument = useDocumentStore((s) => s.addDocument);
+  const selectDocument = useDocumentStore((s) => s.selectDocument);
 
   const handleGenerator = async () => {
     if (!selected) return;
@@ -22,7 +26,19 @@ export default function TypeSelector() {
 
       const response = await generateContent(prompt);
 
-      setOutput(response || 'No Response');
+      if (!response) {
+        setOutput('No Response');
+        return;
+      }
+      const created = await createDocument({
+        title: formValue.topic || 'Untitled',
+        content: response,
+        type: selected,
+      });
+
+      addDocument(created);
+      selectDocument(created);
+      setOutput(response);
     } catch (error) {
       console.log(error);
 

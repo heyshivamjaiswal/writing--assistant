@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from './api';
 
 type CreateDocumentInput = {
   title: string;
@@ -7,21 +7,7 @@ type CreateDocumentInput = {
 };
 
 export const createDocument = async (data: CreateDocumentInput) => {
-  const token = localStorage.getItem('token');
-
-  const res = await axios.post(
-    'http://localhost:5000/documents',
-
-    data,
-
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
-
-  console.log('CREATE RESPONSE', res.data);
+  const res = await api.post('/documents', data);
 
   return res.data.document;
 };

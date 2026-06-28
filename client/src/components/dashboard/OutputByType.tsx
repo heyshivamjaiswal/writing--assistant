@@ -32,7 +32,7 @@ export default function OutputByType() {
 
     {
       label: 'Ad Copy',
-      used: counts.email,
+      used: counts.adCopy,
       color: 'bg-accent-orange',
     },
 

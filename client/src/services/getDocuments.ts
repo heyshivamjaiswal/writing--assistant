@@ -1,17 +1,7 @@
-import axios from 'axios';
+import api from './api';
 
 export const getDocuments = async () => {
-  const token = localStorage.getItem('token');
-
-  const response = await axios.get(
-    'http://localhost:5000/documents',
-
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await api.get('/documents');
 
   return response.data;
 };

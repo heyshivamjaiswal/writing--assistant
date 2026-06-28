@@ -1,15 +1,18 @@
 import { useState } from 'react';
+
+import DashboardLayout from '../../../components/layout/DashboardLayout';
+
 import DocumentList from '../../../components/History/DocumentList';
 import FilterTabs from '../../../components/History/FilterTabs';
 import SearchBar from '../../../components/History/SearchBar';
+
 import { useDocumentStore } from '../../../store/useDocumentStore';
 
 export default function History() {
-  //filtering through title of the content
   const documents = useDocumentStore((s) => s.documents);
+
   const [search, setSearch] = useState('');
 
-  //filtering through types
   const [filterType, setFilterType] = useState('');
 
   const filteredDocs = documents
@@ -21,19 +24,20 @@ export default function History() {
     );
 
   return (
-    <div className="bg-bg-base min-h-screen p-5">
-      <header>
-        <div className="flex  ml-40 gap-30 px-20 ">
-          <SearchBar search={search} setSearch={setSearch} />
+    <DashboardLayout>
+      <div className="flex items-center justify-between mb-8">
+        <SearchBar search={search} setSearch={setSearch} />
 
-          <div className="flex items-center gap-4">
-            <span className="text-xs text-text-secondary">Filters</span>
-            <FilterTabs filterType={filterType} setFilterType={setFilterType} />
-          </div>
+        <div className="flex items-center gap-4">
+          <span className="text-xs text-text-secondary">Filters</span>
+
+          <FilterTabs filterType={filterType} setFilterType={setFilterType} />
         </div>
-      </header>
-      <div className="border border-border-sidebar mt-10"></div>
+      </div>
+
+      <div className="border-b border-border-sidebar mb-6" />
+
       <DocumentList docus={filteredDocs} />
-    </div>
+    </DashboardLayout>
   );
 }
